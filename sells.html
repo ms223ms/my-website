@@ -129,10 +129,20 @@
 
 <body>
   <div style="position: fixed; right: 10px; top: 15px; z-index: 1000;">
-  <button class="img-btn" onclick="openProtectedHome()">
+  <button class="img-btn" onclick="showLoginModal()">
     <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="الصفحة الرئيسية">
   </button>
 </div>
+  <!-- نافذة تسجيل الدخول الصغيرة -->
+<div id="homeLoginModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
+      background:#fff; padding:15px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.3); z-index:2000;">
+  <h4 style="margin:0 0 10px 0;">تسجيل الدخول للعودة للصفحة الرئيسية</h4>
+  <input id="homeUsername" type="text" placeholder="اسم المستخدم" style="width:100%; margin-bottom:8px; padding:6px;">
+  <input id="homePassword" type="password" placeholder="كلمة المرور" style="width:100%; margin-bottom:8px; padding:6px;">
+  <div style="text-align:right;">
+    <button onclick="checkHomeLogin()" style="padding:5px 10px;">دخول</button>
+    <button onclick="closeHomeModal()" style="padding:5px 10px;">إلغاء</button>
+  </div>
   <div class="container">
     <h1>صفحة البائعين</h1>
 
@@ -497,14 +507,22 @@
     });
 
     fetchData();
-    function openProtectedHome() {
-    const username = prompt("👤 أدخل اسم المستخدم:");
-    const password = prompt("🔒 أدخل كلمة المرور:");
+      function showLoginModal() {
+    document.getElementById('homeLoginModal').style.display = 'block';
+  }
 
-    if (username === "green.golden" && password === "P@ssw0rd") {
-      window.location.href = "index.html";
+  function closeHomeModal() {
+    document.getElementById('homeLoginModal').style.display = 'none';
+  }
+
+  function checkHomeLogin() {
+    const user = document.getElementById('homeUsername').value.trim();
+    const pass = document.getElementById('homePassword').value;
+
+    if(user === 'tarek.azab' && pass === 'admin123') {
+      window.location.href = 'index.html';
     } else {
-      alert("❌ اسم المستخدم أو كلمة المرور غير صحيحة");
+      alert('❌ اسم المستخدم أو كلمة المرور غير صحيحة');
     }
   }
   </script>
@@ -514,6 +532,7 @@
 
 
 </html>
+
 
 
 
