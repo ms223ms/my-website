@@ -405,28 +405,30 @@
     <header>
         <h1>🌿 GREEN GOLDEN </h1>
     </header>
-<!-- الأزرار الرئيسية الثلاثة -->
-<div style="position: fixed; right: 10px; top: 15px; z-index: 1000;">
-  <button class="img-btn" onclick="showLoginModal('sells.html')">
-    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="صفحة البائعين" style="width:40px;">
+<!-- 🔘 أزرار الصور على يمين الصفحة -->
+<div class="button-container">
+  <button class="img-btn" onclick="openProtectedPage('sells.html')">
+    <img src="https://cdn-icons-png.flaticon.com/512/2972/2972113.png" alt="البائعين">
   </button>
-  <button class="img-btn" onclick="showLoginModal('admin.html')">
-    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="صفحة المسؤول" style="width:40px;">
+
+  <button class="img-btn" onclick="openProtectedPage('admin.html')">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="المسؤول">
   </button>
-  <button class="img-btn" onclick="showLoginModal('other.html')">
-    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="صفحة أخرى" style="width:40px;">
+
+  <button class="img-btn" onclick="openProtectedPage('index.html')">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="الرئيسية">
   </button>
 </div>
 
 <!-- نافذة تسجيل الدخول الصغيرة -->
-<div id="homeLoginModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
+<div id="loginModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
       background:#fff; padding:15px; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.3); z-index:2000;">
   <h4 style="margin:0 0 10px 0;">تسجيل الدخول للوصول</h4>
-  <input id="homeUsername" type="text" placeholder="اسم المستخدم" style="width:100%; margin-bottom:8px; padding:6px;">
-  <input id="homePassword" type="password" placeholder="كلمة المرور" style="width:100%; margin-bottom:8px; padding:6px;">
+  <input id="modalUsername" type="text" placeholder="اسم المستخدم" style="width:100%; margin-bottom:8px; padding:6px;">
+  <input id="modalPassword" type="password" placeholder="كلمة المرور" style="width:100%; margin-bottom:8px; padding:6px;">
   <div style="text-align:right;">
-    <button onclick="checkHomeLogin()" style="padding:5px 10px;">دخول</button>
-    <button onclick="closeHomeModal()" style="padding:5px 10px;">إلغاء</button>
+    <button onclick="checkLogin()" style="padding:5px 10px;">دخول</button>
+    <button onclick="closeModal()" style="padding:5px 10px;">إلغاء</button>
   </div>
 </div>
     <div class="container">
@@ -738,24 +740,29 @@
             searchInput.addEventListener('input', () => renderProducts('', searchInput.value));
             fetchFromBin();
         });
-    let targetPage = '';
+     let targetPage = '';
 
-  function showLoginModal(page) {
-    targetPage = page; // حفظ الصفحة المستهدفة
-    document.getElementById('homeLoginModal').style.display = 'block';
+  function openProtectedPage(page) {
+    if(page === 'index.html') {
+      // الصفحة الرئيسية بدون باسورد
+      window.location.href = page;
+    } else {
+      targetPage = page;
+      document.getElementById('loginModal').style.display = 'block';
+    }
   }
 
-  function closeHomeModal() {
-    document.getElementById('homeLoginModal').style.display = 'none';
-    document.getElementById('homeUsername').value = '';
-    document.getElementById('homePassword').value = '';
+  function closeModal() {
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('modalUsername').value = '';
+    document.getElementById('modalPassword').value = '';
   }
 
-  function checkHomeLogin() {
-    const user = document.getElementById('homeUsername').value.trim();
-    const pass = document.getElementById('homePassword').value;
+  function checkLogin() {
+    const user = document.getElementById('modalUsername').value.trim();
+    const pass = document.getElementById('modalPassword').value;
 
-    if(user === 'tarek.azab' && pass === 'admin123') {
+    if(user === 'green.golden' && pass === 'P@ssw0rd') {
       window.location.href = targetPage; // الانتقال للصفحة المطلوبة
     } else {
       alert('❌ اسم المستخدم أو كلمة المرور غير صحيحة');
@@ -767,6 +774,7 @@
 
 
 </html>
+
 
 
 
