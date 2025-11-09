@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title> GREEN GOLDEN </title>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* (نفس CSS الخاص بك، قَصرت هنا للوضوح — حافظت على التصميم كما هو) */
+        :root {
+            --bg1: #0b3d0b;
+            --bg2: #062006;
+            --card: #163e16;
+            --accent: #4caf50;
+            --glass: rgba(255, 255, 255, 0.04)
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Almarai', sans-serif
+        }
+
+        body {
+            margin: 0;
+            background: url('https://images.pexels.com/photos/13565199/pexels-photo-13565199.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            color: #000000;
+            font-weight: bold;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 18px 12px;
+            text-align: center
+        }
+
+        header h1 {
+            font-size: 34px;
+            margin: 0;
+            text-shadow: 0 6px 18px rgba(0, 0, 0, .6);
+            animation: floatTitle 3s ease-in-out infinite
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 18px auto;
+            display: flex;
+            gap: 18px;
+            align-items: flex-start
+        }
+
+        .left {
+            flex: 1
+        }
+
+        .featured {
+            background: var(--card);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden
+        }
+
+        .featured .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px
+        }
+
+        .featured .title h2 {
+            margin: 0;
+            font-size: 18px
+        }
+
+        .featured-slider {
+            display: flex;
+            overflow: hidden;
+            gap: 5px;
+            padding: 6px 0;
+            scroll-behavior: smooth
+        }
+
+        .featured-item {
+            flex: 0 0 20%;
+            min-width: 0;
+            height: 170px;
+            border-radius: 10px;
+            background: #1f5a1f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform .25s, box-shadow .25s
+        }
+
+        .featured-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        .featured-item .meta {
+            position: absolute;
+            left: 8px;
+            bottom: 8px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, .5), transparent);
+            padding: 6px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #fff
+        }
+
+        .cats {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+            overflow: hidden
+        }
+
+        .cat-pill {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            flex: 0 0 auto
+        }
+
+        .cat-pill.active {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .6);
+            background: linear-gradient(90deg, var(--accent), #2f8b2f);
+            color: #fff
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            overflow: hidden
+        }
+
+        .product {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .18s, box-shadow .18s
+        }
+
+        .product:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, .6);
+            outline: 2px solid rgba(76, 175, 80, .12)
+        }
+
+        .p-img {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #123;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .p-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        .p-meta {
+            padding: 8px
+        }
+
+        .p-meta h3 {
+            margin: 0 0 6px 0;
+            font-size: 16px
+        }
+
+        .p-meta p {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            color: #e8f7e8
+        }
+
+        .p-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px
+        }
+
+        .p-row .price {
+            font-weight: 700
+        }
+
+        .p-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 8px
+        }
+
+        .p-actions input[type=number] {
+            width: 64px;
+            padding: 6px;
+            border-radius: 6px;
+            border: none;
+            text-align: center
+        }
+
+        .p-actions button {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent);
+            color: #042404;
+            cursor: pointer;
+            font-weight: 700
+        }
+
+        .p-actions .small {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, .06);
+            color: #fff;
+            padding: 6px 8px
+        }
+
+        .right {
+            width: 340px;
+            min-width: 260px
+        }
+
+        .cart-panel {
+            background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, .01));
+            padding: 12px;
+            border-radius: 12px;
+            position: sticky;
+            top: 20px
+        }
+
+        .cart-panel h3 {
+            margin: 0 0 8px 0;
+            text-align: center
+        }
+
+        .cart-list {
+            max-height: 340px;
+            overflow: auto;
+            padding: 6px;
+            margin-bottom: 8px
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px;
+            border-radius: 8px
+        }
+
+        .cart-item .name {
+            font-size: 14px
+        }
+
+        .cart-total {
+            font-weight: 700;
+            text-align: center;
+            margin: 8px 0
+        }
+
+        .big-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background: var(--accent);
+            color: #042404;
+            font-weight: 800;
+            cursor: pointer
+        }
+
+        #adminPanel {
+            background: rgba(0, 0, 0, .55);
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 12px;
+            display: none
+        }
+
+        #adminPanel h4 {
+            margin: 0 0 8px 0;
+            text-align: center
+        }
+
+        #adminPanel label {
+            display: block;
+            font-size: 13px;
+            margin-top: 8px
+        }
+
+        #adminPanel input[type=text],
+        #adminPanel input[type=number],
+        #adminPanel textarea,
+        #adminPanel select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            border: 1px solid #4caf50;
+            margin-top: 6px
+        }
+
+        #adminPanel input[type=file] {
+            margin-top: 6px
+        }
+
+        #adminPanel .row {
+            display: flex;
+            gap: 8px
+        }
+
+        #adminPanel .row .col {
+            flex: 1
+        }
+
+        .small-muted {
+            font-size: 12px;
+            color: #cfe9cf;
+            margin-top: 6px
+        }
+
+        #loginOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999
+        }
+
+        #loginBox {
+            width: 320px;
+            padding: 18px;
+            background: linear-gradient(180deg, #082b08, #052205);
+            border-radius: 12px
+        }
+
+        #loginBox input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-top: 8px;
+            background: rgba(255, 255, 255, .03);
+            color: #fff
+        }
+
+        #loginBox button {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent);
+            color: #042404;
+            width: 100%;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        #toast {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 18px;
+            background: #1b501b;
+            padding: 10px 14px;
+            border-radius: 10px;
+            display: none
+        }
+
+        @media(max-width:980px) {
+            .container {
+                flex-direction: column
+            }
+
+            .right {
+                width: 100%
+            }
+        }
+
+        button {
+            background: linear-gradient(145deg, #006400, #00a000);
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: all .3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, .3)
+        }
+
+        button:hover {
+            background: linear-gradient(145deg, #00a000, #008000);
+            transform: scale(1.05)
+        }
+
+        #exportBtn,
+        #importBtn {
+            pointer-events: none;
+            /* يمنع الضغط على الزر */
+            opacity: 0.5;
+            /* يخلي الزرار يبدو معطّل */
+            cursor: not-allowed;
+            /* يغيّر شكل المؤشر */
+            display: none;
+        }
+
+        #changeBgBtn,
+        #bgUrlInput,
+        #setBgBtn {
+            display: none;
+            /* يخفي الأزرار وحقول الإدخال */
+        }
+
+        label[for="bgUrlInput"],
+        /* لو في label مربوط بالـ input */
+        label {
+            display: none;
+            /* يخفي النصوص التسميات */
+        }
+
+
+        @keyframes floatTitle {
+            0% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-6px)
+            }
+
+            100% {
+                transform: translateY(0)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🌿 GREEN GOLDEN </h1>
+    </header>
+
+    <div class="container" id="mainArea">
+        <div class="left">
+            <div class="featured">
+                <div class="title">
+                    <h2>المنتجات المميزة</h2>
+                    <div>
+                        <button id="prevFeat" class="small-muted"
+                            style="background:transparent;border:0;color:#d7ffd7;cursor:pointer"><i
+                                class="fa fa-chevron-left"></i></button>
+                        <button id="nextFeat" class="small-muted"
+                            style="background:transparent;border:0;color:#d7ffd7;cursor:pointer"><i
+                                class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="featured-slider" id="featuredSlider"></div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="color:#dff0dff2;font-size:15px">الفئات</div>
+                <div><button id="showAll" class="cat-pill">الكل</button></div>
+            </div>
+            <div class="cats" id="catsRow"></div>
+
+            <div class="products" id="productsGrid"></div>
+        </div>
+
+        <aside class="right">
+            <div class="cart-panel" id="cartPanel">
+                <h3>سلة المشتريات</h3>
+                <div class="cart-list" id="cartList"></div>
+                <div class="cart-total" id="cartTotal">الإجمالي: 0 جنيه</div>
+                <button class="big-btn" id="checkoutBtn">طلب عبر واتساب</button>
+            </div>
+
+            <div id="adminPanel">
+                <h4>لوحة المسؤول</h4>
+                <div class="small-muted">اضغط على المنتج لتعديله أو استخدم الزر لإضافة منتج جديد</div>
+
+                <label>رابط صورة المنتج</label>
+                <input type="text" id="prodImgUrl" placeholder="أدخل رابط صورة المنتج">
+
+                <label>الاسم</label><input type="text" id="prodName" placeholder="اسم المنتج">
+                <label>السعر (جنيه)</label><input type="number" id="prodPrice" placeholder="السعر">
+
+                <label>الفئة</label>
+                <div class="row">
+                    <div class="col"><select id="prodCategory">
+                            <option value="">اختر فئة</option>
+                        </select></div>
+                    <div class="col" style="flex:0 0 40px"><button id="addCategoryBtn" class="small-muted"
+                            title="إضافة فئة"><i class="fa fa-plus"></i></button></div>
+                </div>
+
+                <!-- نافذة إدارة الفئات -->
+                <div id="categoryManager" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+     background:white;padding:20px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.3);z-index:999;width:300px">
+                    <h3>إدارة الفئات</h3>
+                    <input type="text" id="newCategoryInput" placeholder="اسم الفئة الجديدة"
+                        style="width:100%;margin-bottom:10px">
+                    <button id="saveNewCategory">➕ إضافة</button>
+
+                    <div id="categoriesList" style="margin-top:10px;max-height:250px;overflow-y:auto;"></div>
+
+                    <button id="closeCatManager"
+                        style="margin-top:10px;background:#f44336;color:white;padding:5px 10px;border:none;border-radius:5px;width:100%">
+                        إغلاق
+                    </button>
+                </div>
+
+                <label>الوصف</label><textarea id="prodDesc" rows="3" placeholder="وصف قصير"></textarea>
+
+                <div style="display:flex;gap:8px;margin-top:10px">
+                    <button id="changeBgBtn" class="small-muted" style="margin-top:10px">🎨 اختيار خلفية</button>
+                    <button id="saveProdBtn" class="big-btn" style="flex:1">إضافة المنتج</button>
+                    <button id="clearFormBtn" class="small-muted" style="flex:0 0 60px">مسح</button>
+                </div>
+
+                <label>رابط الخلفية</label>
+                <input type="text" id="bgUrlInput" placeholder="أدخل رابط الخلفية هنا">
+                <button id="setBgBtn">حفظ الخلفية</button>
+
+                <label style="margin-top:12px">رقم واتساب (الطلبات)</label>
+                <input type="text" id="whatsappNumber" placeholder="مثال: 2010xxxxxxxx">
+
+                <div style="display:flex;gap:8px;margin-top:10px">
+                    <button id="exportBtn" class="small-muted" style="flex:1">📦 تصدير البيانات</button>
+                    <button id="importBtn" class="small-muted" style="flex:1">📂 استيراد (من ملف JSON)</button>
+                </div>
+
+                <!-- إضافة زر تصدير الفواتير هنا -->
+                <button id="exportOrdersBtn" class="small-muted" style="flex:1;margin-top:10px">📊 تصدير
+                    الفواتير</button>
+
+                <div style="margin-top:10px;display:flex;gap:8px">
+                    <button id="logoutBtn" class="small-muted" style="flex:1">خروج</button>
+                    <button id="clearAllBtn" class="small-muted" style="flex:1">مسح الكل</button>
+                </div>
+
+                <hr style="margin:12px 0; border-color:#4caf50">
+                <h4>بحث وتعديل الفواتير</h4>
+                <div style="display:flex; gap:8px; margin-bottom:8px;">
+                    <input type="text" id="searchInvoiceInput" placeholder="أدخل رقم الفاتورة">
+                    <button id="searchInvoiceBtn" class="small-muted">🔍 بحث</button>
+                </div>
+                <div id="invoiceResult"></div>
+
+            </div>
+        </aside>
+    </div>
+
+    <!-- login overlay -->
+    <div id="loginOverlay">
+        <div id="loginBox">
+            <h3 style="margin:0 0 6px 0;color:#dfffe0">تسجيل دخول المسؤول</h3>
+            <input id="username" placeholder="اسم المستخدم" />
+            <input id="password" placeholder="كلمة المرور" type="password" />
+            <button id="loginBtn">دخول</button>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // JSONBin config
+            const BIN_ID = "690874bad0ea881f40d07f5d";
+            const MASTER_KEY = "$2a$10$MUgieOcdv8QNyPRuRsFb6eaAOYcAzxuWL6TB6FbI8L7fhZIVVibdO";
+            const API_BASE = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+            // local keys
+            const LS_PRODUCTS = 'osos_products_v1';
+            const LS_CATS = 'osos_cats_v1';
+            const LS_WHATS = 'osos_whatsapp_v1';
+            const LS_BG = 'osos_bg_v1';
+            const LS_ORDERS = 'orders_v1';
+
+            // in-memory
+            let products = [], categories = [], cart = [];
+
+            // elements
+            const productsGrid = document.getElementById('productsGrid');
+            const catsRow = document.getElementById('catsRow');
+            const prodCategory = document.getElementById('prodCategory');
+            const featuredSlider = document.getElementById('featuredSlider');
+            const cartList = document.getElementById('cartList');
+            const cartTotal = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const adminPanel = document.getElementById('adminPanel');
+            const loginOverlay = document.getElementById('loginOverlay');
+            const loginBtn = document.getElementById('loginBtn');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const saveProdBtn = document.getElementById('saveProdBtn');
+            const prodImgFile = document.getElementById('prodImgFile');
+            const prodImgUrl = document.getElementById('prodImgUrl');
+            const prodName = document.getElementById('prodName');
+            const prodPrice = document.getElementById('prodPrice');
+            const prodDesc = document.getElementById('prodDesc');
+            const addCategoryBtn = document.getElementById('addCategoryBtn');
+            const whatsappNumberInput = document.getElementById('whatsappNumber');
+            const exportBtn = document.getElementById('exportBtn');
+            const importBtn = document.getElementById('importBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const clearFormBtn = document.getElementById('clearFormBtn');
+            const clearAllBtn = document.getElementById('clearAllBtn');
+            const prevFeat = document.getElementById('prevFeat');
+            const nextFeat = document.getElementById('nextFeat');
+            const showAllBtn = document.getElementById('showAll');
+            const toastEl = document.getElementById('toast');
+            const bgUrlInput = document.getElementById('bgUrlInput');
+            const setBgBtn = document.getElementById('setBgBtn');
+            const changeBgBtn = document.getElementById('changeBgBtn');
+            const searchInvoiceInput = document.getElementById('searchInvoiceInput');
+            const searchInvoiceBtn = document.getElementById('searchInvoiceBtn');
+            const exportOrdersBtn = document.getElementById('exportOrdersBtn');
+
+            // toast helper
+            function toast(msg, time = 1400) {
+                toastEl.textContent = msg;
+                toastEl.style.display = 'block';
+                setTimeout(() => toastEl.style.display = 'none', time);
+            }
+
+            // escape HTML
+            function escapeHtml(text) {
+                if (!text) return '';
+                return text.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+            }
+
+            // save/load local
+            function saveLocalBackup() {
+                localStorage.setItem(LS_PRODUCTS, JSON.stringify(products));
+                localStorage.setItem(LS_CATS, JSON.stringify(categories));
+                localStorage.setItem(LS_WHATS, whatsappNumberInput.value || '');
+                localStorage.setItem(LS_BG, localStorage.getItem(LS_BG) || '');
+                localStorage.setItem(LS_ORDERS, JSON.stringify(JSON.parse(localStorage.getItem(LS_ORDERS) || '[]')));
+            }
+
+            function loadBackgroundLocal() {
+                const bg = localStorage.getItem(LS_BG);
+                if (bg) applyBackground(bg);
+            }
+
+            function clearForm() {
+                prodImgUrl.value = '';
+                prodName.value = '';
+                prodPrice.value = '';
+                prodDesc.value = '';
+                prodCategory.value = '';
+                prodImgFile.value = '';
+                saveProdBtn.textContent = 'إضافة المنتج';
+                delete saveProdBtn.dataset.editIndex;
+            }
+
+            // background
+            function applyBackground(url) {
+                if (!url) {
+                    document.body.style.background = 'linear-gradient(135deg,#0b3d0b,#062006)';
+                } else {
+                    document.body.style.background = `url('${url}') no-repeat center center/cover`;
+                }
+            }
+
+            async function saveBackgroundToBin(url) {
+                localStorage.setItem(LS_BG, url);
+                applyBackground(url);
+                await saveToBin();
+                toast('تم حفظ الخلفية');
+            }
+
+            setBgBtn.addEventListener('click', () => {
+                const url = bgUrlInput.value.trim();
+                if (!url) return toast('أدخل رابط الخلفية أولاً');
+                saveBackgroundToBin(url);
+            });
+
+            changeBgBtn.addEventListener('click', () => {
+                bgUrlInput.focus();
+                toast('أدخل رابط الخلفية ثم اضغط "حفظ الخلفية"');
+            });
+
+            // render categories
+            function renderCats() {
+                catsRow.innerHTML = '';
+                prodCategory.innerHTML = '<option value="">اختر فئة</option>';
+                categories.forEach(c => {
+                    const pill = document.createElement('button');
+                    pill.className = 'cat-pill';
+                    pill.textContent = c;
+                    pill.onclick = () => { filterByCategory(c); document.querySelectorAll('.cat-pill').forEach(el => el.classList.remove('active')); pill.classList.add('active'); };
+                    catsRow.appendChild(pill);
+
+                    const opt = document.createElement('option');
+                    opt.value = c;
+                    opt.text = c;
+                    prodCategory.appendChild(opt);
+                });
+            }
+
+            // render products
+            function renderProducts(filterCat = '') {
+                productsGrid.innerHTML = '';
+                products.forEach((p, idx) => {
+                    if (filterCat && p.category !== filterCat) return;
+                    const card = document.createElement('div');
+                    card.className = 'product';
+                    card.innerHTML = `
+                <div class="p-img"><img src="${p.img || 'https://i.imgur.com/6oKfLQk.jpg'}" alt=""></div>
+                <div class="p-meta">
+                  <h3>${escapeHtml(p.name)}</h3>
+                  <p>${escapeHtml(p.desc || '')}</p>
+                  <div class="p-row"><div class="price">${Number(p.price || 0).toFixed(2)} جنيه</div><div style="font-size:12px;color:#cfe9cf">${p.category || 'عام'}</div></div>
+                  <div class="p-actions">
+                    <input type="number" min="1" value="1" id="qty_${idx}">
+                    <button class="addCart" data-index="${idx}">أضف للسلة</button>
+                    <button class="fav small" data-index="${idx}" title="اضف للمميزة"><i class="fa fa-star"></i></button>
+                    <button class="edit small" data-index="${idx}" title="تعديل">✎</button>
+                    <button class="del small" data-index="${idx}" title="حذف">🗑️</button>
+                  </div>
+                </div>
+            `;
+                    card.addEventListener('mouseenter', () => { card.classList.add('flash'); setTimeout(() => card.classList.remove('flash'), 900); });
+                    productsGrid.appendChild(card);
+                });
+
+                // attach events
+                document.querySelectorAll('.addCart').forEach(btn => btn.onclick = e => {
+                    const i = Number(e.currentTarget.dataset.index);
+                    const q = Number(document.getElementById('qty_' + i).value || 1);
+                    addToCart(i, q);
+                });
+                document.querySelectorAll('.fav').forEach(btn => btn.onclick = e => {
+                    const i = Number(e.currentTarget.dataset.index);
+                    products[i].featured = !products[i].featured;
+                    saveLocalBackup(); saveToBin(); renderFeatured();
+                    toast(products[i].featured ? 'تمت الإضافة للمميزة' : 'أزيل من المميزة');
+                });
+                document.querySelectorAll('.edit').forEach(btn => btn.onclick = e => enterEdit(Number(e.currentTarget.dataset.index)));
+                document.querySelectorAll('.del').forEach(btn => btn.onclick = e => {
+                    const i = Number(e.currentTarget.dataset.index);
+                    if (confirm('هل تريد حذف المنتج نهائياً؟')) {
+                        products.splice(i, 1); saveLocalBackup(); saveToBin(); renderProducts(); renderFeatured(); toast('تم الحذف');
+                    }
+                });
+            }
+
+            // featured
+            function renderFeatured() {
+                featuredSlider.innerHTML = '';
+                const feats = products.filter(p => p.featured);
+                if (feats.length === 0) { featuredSlider.innerHTML = '<div style="color:#cfe9cf">لا توجد منتجات مميزة</div>'; return; }
+                feats.forEach(p => {
+                    const item = document.createElement('div'); item.className = 'featured-item';
+                    item.innerHTML = `<img src="${p.img || 'https://i.imgur.com/6oKfLQk.jpg'}" alt=""><div class="meta">${escapeHtml(p.name)}</div>`;
+                    item.onclick = () => addToCart(products.indexOf(p), 1);
+                    featuredSlider.appendChild(item);
+                });
+                featuredSlider.style.display = 'flex'; featuredSlider.style.overflow = 'hidden';
+                featuredSlider.firstChild && (featuredSlider.firstChild.style.minWidth = 'calc(100% / 5)');
+            }
+
+            // cart
+            function addToCart(i, qty) {
+                const p = products[i];
+                const found = cart.find(x => x.name === p.name && x.price === p.price);
+                if (found) found.qty += qty; else cart.push({ name: p.name, price: p.price, qty });
+                renderCart(); toast('أضيف إلى السلة');
+            }
+
+            function renderCart() {
+                cartList.innerHTML = ''; let total = 0;
+                cart.forEach((c, i) => {
+                    const div = document.createElement('div'); div.className = 'cart-item';
+                    div.innerHTML = `<div><div class="name">${escapeHtml(c.name)}</div><div style="font-size:13px;color:#cfe9cf">${c.qty} × ${c.price} جنيه</div></div><div><button class="small-muted" data-i="${i}">مسح</button></div>`;
+                    cartList.appendChild(div);
+                });
+                document.querySelectorAll('.cart-item .small-muted').forEach(b => b.addEventListener('click', e => { cart.splice(Number(e.currentTarget.dataset.i), 1); renderCart(); }));
+                cart.forEach(c => total += c.price * c.qty);
+                cartTotal.textContent = 'الإجمالي: ' + total + ' جنيه';
+            }
+
+            checkoutBtn.addEventListener('click', async () => {
+                const number = whatsappNumberInput.value.trim() || localStorage.getItem(LS_WHATS) || '';
+                if (!number) { alert('المسؤول لم يضع رقم واتساب بعد'); return; }
+                if (cart.length === 0) { alert('السلة فارغة'); return; }
+
+                // رسالة واتساب
+                let msg = `طلب من GOLDEN GREEN:%0A`;
+                cart.forEach(c => msg += `${c.name} x ${c.qty} = ${c.price * c.qty} جنيه%0A`);
+                const url = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+                window.open(url, '_blank');
+
+                // بيانات الفاتورة
+                const invoiceNo = 'INV-' + Date.now();
+                const date = new Date().toLocaleString();
+                let orders = JSON.parse(localStorage.getItem('orders_v1') || '[]');
+
+                // إنشاء فاتورة جديدة مع تفاصيل المنتجات
+                const newInvoice = {
+                    number: invoiceNo,
+                    date: date,
+                    name: '---',          // اسم العميل
+                    phone1: number,       // رقم العميل
+                    phone2: '',
+                    seller: '',           // البائع
+                    clientCode: '',
+                    shipping: '',
+                    deposit: 0,
+                    status: 'تم الطلب',
+                    notes: '',
+                    details: cart.map(c => ({
+                        name: c.name,
+                        qty: c.qty,
+                        price: c.price,
+                        total: c.price * c.qty
+                    }))
+                };
+
+                // حساب إجمالي الفاتورة
+                newInvoice.total = newInvoice.details.reduce((sum, p) => sum + p.total, 0);
+
+                orders.push(newInvoice);
+                localStorage.setItem('orders_v1', JSON.stringify(orders));
+                await saveOrdersToBin(orders);
+
+                cart = [];
+                renderCart();
+                toast('تم إرسال الطلب وحفظه في الفواتير');
+            });
+
+
+            // add/edit product
+            saveProdBtn.addEventListener('click', () => {
+                const name = prodName.value.trim();
+                const price = Number(prodPrice.value);
+                const desc = prodDesc.value.trim();
+                const cat = prodCategory.value;
+                let imgUrl = prodImgUrl.value.trim();
+                const editIndex = saveProdBtn.dataset.editIndex;
+
+                if (prodImgFile.files && prodImgFile.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) { imgUrl = e.target.result; saveProduct(); };
+                    reader.readAsDataURL(prodImgFile.files[0]);
+                } else saveProduct();
+
+                function saveProduct() {
+                    if (!name || !price || !desc || !cat || !imgUrl) { alert('يرجى ملء جميع الحقول بما فيها الصورة'); return; }
+
+                    if (editIndex) {
+                        products[Number(editIndex)] = { ...products[Number(editIndex)], name, price, desc, category: cat, img: imgUrl };
+                        toast('تم حفظ التعديلات');
+                    } else { products.push({ name, price, desc, category: cat, img: imgUrl, featured: false }); toast('تمت إضافة المنتج'); }
+
+                    saveLocalBackup();
+                    saveToBin();
+                    renderProducts();
+                    renderFeatured();
+                    clearForm();
+                }
+            });
+
+            function enterEdit(i) {
+                const p = products[i];
+                prodImgUrl.value = p.img || '';
+                prodName.value = p.name; prodPrice.value = p.price; prodDesc.value = p.desc;
+                prodCategory.value = p.category || '';
+                saveProdBtn.textContent = 'حفظ التعديل'; saveProdBtn.dataset.editIndex = i;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            clearFormBtn.addEventListener('click', clearForm);
+
+            // add category
+            addCategoryBtn.addEventListener('click', () => {
+                const name = prompt('أدخل اسم الفئة الجديدة:');
+                if (!name) return;
+                if (categories.includes(name)) { toast('الفئة موجودة بالفعل'); return; }
+                categories.push(name);
+                saveLocalBackup();
+                saveToBin();
+                renderCats();
+                toast('تمت إضافة الفئة');
+            });
+
+            // export/import
+            exportBtn.addEventListener('click', () => {
+                const data = { products, categories, whatsapp: whatsappNumberInput.value || '', background: localStorage.getItem(LS_BG) || '' };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'products.json'; a.click();
+            });
+
+            importBtn.addEventListener('click', () => {
+                const f = document.createElement('input'); f.type = 'file'; f.accept = '.json';
+                f.onchange = () => {
+                    const file = f.files[0]; if (!file) return;
+                    const r = new FileReader();
+                    r.onload = e => {
+                        try {
+                            const obj = JSON.parse(e.target.result);
+                            if (obj.products) products = obj.products;
+                            if (obj.categories) categories = obj.categories;
+                            if (obj.whatsapp) whatsappNumberInput.value = obj.whatsapp || '';
+                            if (obj.background) localStorage.setItem(LS_BG, obj.background);
+                            saveLocalBackup(); saveToBin();
+                            renderCats(); renderProducts(); renderFeatured(); toast('تم الاستيراد');
+                        } catch { alert('ملف غير صحيح'); }
+                    };
+                    r.readAsText(file);
+                };
+                f.click();
+            });
+
+            logoutBtn.addEventListener('click', () => { if (confirm('هل تريد الخروج من لوحة المسؤول؟')) { adminPanel.style.display = 'none'; loginOverlay.style.display = 'flex'; } });
+            clearAllBtn.addEventListener('click', () => { if (confirm('سيتم مسح كل المنتجات والفئات. تابع؟')) { products = []; categories = []; saveLocalBackup(); saveToBin(); renderCats(); renderProducts(); renderFeatured(); toast('تم المسح'); } });
+
+            // login
+            loginBtn.addEventListener('click', () => {
+                const user = usernameInput.value.trim();
+                const pass = passwordInput.value.trim();
+                if (user === 'tarek.azab' && pass === 'admin123') {
+                    loginOverlay.style.display = 'none';
+                    adminPanel.style.display = 'block';
+                    whatsappNumberInput.value = localStorage.getItem(LS_WHATS) || '';
+                    renderCats(); renderProducts(); renderFeatured(); renderCart(); toast('تم تسجيل الدخول');
+                } else alert('خطأ في اسم المستخدم أو كلمة المرور');
+            });
+            passwordInput.addEventListener('keypress', e => { if (e.key === 'Enter') loginBtn.click(); });
+
+            // fetch/save JSONBin
+            async function fetchFromBin() {
+                toast('جاري جلب البيانات من الخادم...');
+                try {
+                    const res = await fetch(API_BASE + '/latest', { headers: { "X-Master-Key": MASTER_KEY } });
+                    if (!res.ok) throw new Error('status ' + res.status);
+                    const record = (await res.json()).record || {};
+                    products = Array.isArray(record.products) ? record.products : [];
+                    categories = Array.isArray(record.categories) ? record.categories : [];
+                    if (record.whatsapp) whatsappNumberInput.value = record.whatsapp;
+                    if (record.background) { localStorage.setItem(LS_BG, record.background); applyBackground(record.background); }
+                    saveLocalBackup(); renderCats(); renderProducts(); renderFeatured(); renderCart();
+                    toast('تم جلب البيانات من JSONBin');
+                } catch (err) {
+                    console.error(err);
+                    toast('فشل تحميل من JSONBin — استخدام النسخة المحلية');
+                    products = JSON.parse(localStorage.getItem(LS_PRODUCTS) || '[]');
+                    categories = JSON.parse(localStorage.getItem(LS_CATS) || '[]');
+                    whatsappNumberInput.value = localStorage.getItem(LS_WHATS) || '';
+                    loadBackgroundLocal(); renderCats(); renderProducts(); renderFeatured(); renderCart();
+                }
+            }
+
+            async function saveToBin() {
+                toast('جاري حفظ البيانات على الخادم...');
+                try {
+                    const payload = { products, categories, whatsapp: whatsappNumberInput.value || '', background: localStorage.getItem(LS_BG) || '', invoices: JSON.parse(localStorage.getItem(LS_ORDERS) || '[]') };
+                    const res = await fetch(API_BASE, { method: 'PUT', headers: { "X-Master-Key": MASTER_KEY, "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+                    if (!res.ok) throw new Error('status ' + res.status);
+                    await res.json();
+                    saveLocalBackup();
+                    toast('تم الحفظ على JSONBin');
+                } catch (err) {
+                    console.error(err);
+                    toast('فشل الحفظ على JSONBin — تم حفظ نسخة محلية فقط');
+                    saveLocalBackup();
+                }
+            }
+
+            async function saveOrdersToBin(orders) {
+                try {
+                    let recordRes = await fetch(`${API_BASE}/latest`, { headers: { "X-Master-Key": MASTER_KEY } });
+                    const json = await recordRes.json(); const record = json.record || {};
+                    const payload = {
+                        products: record.products || [],
+                        categories: record.categories || [],
+                        whatsapp: record.whatsapp || '',
+                        background: record.background || '',
+                        invoices: orders
+                    };
+                    await fetch(API_BASE, { method: 'PUT', headers: { "X-Master-Key": MASTER_KEY, "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+                } catch (err) { console.error(err); toast('فشل حفظ الفواتير على JSONBin'); }
+            }
+
+            // filter/show all
+            function filterByCategory(cat) { renderProducts(cat); }
+            showAllBtn.addEventListener('click', () => { renderProducts(); document.querySelectorAll('.cat-pill').forEach(el => el.classList.remove('active')); });
+
+            // featured auto-scroll
+            let featTimer = setInterval(() => { const items = featuredSlider.children; if (items.length > 5) featuredSlider.appendChild(items[0]); }, 3000);
+            prevFeat.onclick = () => { const items = featuredSlider.children; if (items.length <= 5) return; featuredSlider.insertBefore(items[items.length - 1], items[0]); };
+            nextFeat.onclick = () => { const items = featuredSlider.children; if (items.length > 5) featuredSlider.appendChild(items[0]); };
+
+            // initial load
+            fetchFromBin();
+            window.addEventListener('beforeunload', () => saveLocalBackup());
+
+            // تحميل مكتبة XLSX
+            const xlsxScript = document.createElement('script');
+            xlsxScript.src = "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";
+            document.head.appendChild(xlsxScript);
+
+            // search invoice
+            searchInvoiceBtn.addEventListener('click', async () => {
+                const val = searchInvoiceInput.value.trim();
+                if (!val) return toast('أدخل رقم الفاتورة للبحث');
+                toast('⏳ جاري البحث عن الفاتورة...');
+                try {
+                    const res = await fetch(`${API_BASE}/latest`, { headers: { "X-Master-Key": MASTER_KEY } });
+                    if (!res.ok) throw new Error('فشل الاتصال بقاعدة البيانات');
+                    const invoices = (await res.json()).record.invoices || [];
+                    const matched = invoices.filter(o => o.invoiceNo === val);
+                    if (!matched.length) { toast('❌ لا توجد فاتورة بهذا الرقم'); return; }
+                    const o = matched[0];
+                    const newWin = window.open('', '_blank');
+                    newWin.document.write(`<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>فاتورة ${o.invoiceNo}</title><style>
+                body { font-family: 'Almarai', sans-serif; background: rgba(0,0,0,0.8); color: #fff; padding:20px; text-align:center; }
+                .invoice-box { background: rgba(255,255,255,0.1); border-radius:12px; padding:20px; margin:auto; width:80%; box-shadow:0 0 15px rgba(255,255,255,0.2);}
+                h2 { color:#a8e6a2; margin-bottom:10px; }
+                table { width:100%; border-collapse:collapse; margin-top:10px;}
+                td, th { padding:8px; border-bottom:1px solid rgba(255,255,255,0.2); text-align:right; }
+                .total { font-weight:bold; color:#ffeb3b; font-size:1.2em;}
+                .print-btn { background:#4caf50; color:white; border:none; border-radius:8px; padding:10px 20px; cursor:pointer; margin-top:15px; }
+                .print-btn:hover { background:#66bb6a; }
+            </style></head><body><div class="invoice-box">
+                <h2>فاتورة رقم ${o.invoiceNo}</h2>
+                <p>📅 التاريخ: ${o.date}</p>
+                <p>👤 العميل: ${o.clientName || '---'}</p>
+                <table>
+                    <tr><th>البيان</th><td>${o.details}</td></tr>
+                    <tr><th>الكمية</th><td>${o.quantity}</td></tr>
+                    <tr><th>السعر</th><td>${o.price} جنيه</td></tr>
+                    <tr class="total"><th>الإجمالي</th><td>${o.total} جنيه</td></tr>
+                    <tr><th>الحالة</th><td>${o.status || '---'}</td></tr>
+                    <tr><th>البائع</th><td>${o.seller || '---'}</td></tr>
+                    <tr><th>كود العميل</th><td>${o.clientCode || '---'}</td></tr>
+                    <tr><th>الشحن</th><td>${o.shipping || '---'}</td></tr>
+                    <tr><th>العربون</th><td>${o.deposit || '---'}</td></tr>
+                    <tr><th>ملاحظات</th><td>${o.notes || '---'}</td></tr>
+                </table>
+                <button class="print-btn" onclick="window.print()">🖨️ طباعة الفاتورة</button>
+            </div></body></html>`);
+                    newWin.document.close();
+                    toast('✅ تم فتح صفحة الفاتورة بنجاح');
+                } catch (err) { console.error(err); toast('❌ حدث خطأ أثناء البحث'); }
+            });
+
+            // export orders to Excel
+            exportOrdersBtn.addEventListener('click', async () => {
+                toast('⏳ جاري تجهيز ملف الفواتير...');
+                try {
+                    const res = await fetch(`${API_BASE}/latest`, { headers: { "X-Master-Key": MASTER_KEY } });
+                    const invoices = (await res.json()).record.invoices || [];
+                    if (!invoices.length) { toast('⚠️ لا توجد فواتير مسجلة بعد'); return; }
+                    const sheetData = [['رقم الفاتورة', 'التاريخ', 'اسم العميل', 'البيان', 'الكمية', 'السعر', 'الإجمالي', 'ملاحظات', 'البائع', 'تليفون1', 'تليفون2', 'رقم التتبع', 'الحالة', 'كود العميل', 'الشحن', 'العربون']];
+                    invoices.forEach(o => sheetData.push([o.invoiceNo || '', o.date || '', o.clientName || '', o.details || '', o.quantity || '', o.price || '', o.total || '', o.notes || '', o.seller || '', o.phone1 || '', o.phone2 || '', o.trackingNo || '', o.status || '', o.clientCode || '', o.shipping || '', o.deposit || '']));
+                    const workbook = XLSX.utils.book_new();
+                    const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
+                    XLSX.utils.book_append_sheet(workbook, worksheet, 'Invoices');
+                    const fileName = `فواتير_GOLDEN_GREEN_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.xlsx`;
+                    XLSX.writeFile(workbook, fileName);
+                    toast('✅ تم تصدير ملف الفواتير بنجاح');
+                } catch (err) { console.error(err); toast('❌ حدث خطأ أثناء تصدير الفواتير'); }
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

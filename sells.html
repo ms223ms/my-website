@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <a href="index.html">العودة للصفحة الرئيسية</a>
+  <title>صفحة البائعين</title>
+  <style>
+    body {
+      font-family: 'Almarai', sans-serif;
+      background: url('https://images.pexels.com/photos/13565191/pexels-photo-13565191.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      color: #000;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      margin: 40px auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 900px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1b5e20;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .search-box input {
+      width: 60%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      text-align: center;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #2e7d32;
+      color: white;
+    }
+
+    input[type="number"],
+    select,
+    input[type="text"] {
+      width: 80%;
+      text-align: center;
+      padding: 6px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+      font-weight: bold;
+    }
+
+    select {
+      background-color: #f8f8f8;
+      color: #000;
+    }
+
+    .btn {
+      display: block;
+      background-color: #2e7d32;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background-color: #1b5e20;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>صفحة البائعين</h1>
+
+    <div class="info-grid">
+      <div>
+        <label>كود البائع:</label>
+        <select id="sellerCode">
+          <option value="">-- اختر الكود --</option>
+        </select>
+      </div>
+      <div>
+        <label>اسم العميل:</label>
+        <input type="text" id="custName">
+      </div>
+      <div>
+        <label>رقم الهاتف:</label>
+        <input type="text" id="custPhone">
+      </div>
+      <div>
+        <label>المحافظة:</label>
+        <select id="custCity">
+          <option value="">-- اختر المحافظة --</option>
+          <option>الإسكندرية</option>
+          <option>البحيرة</option>
+          <option>الجيزة</option>
+          <option>الدقهلية</option>
+          <option>الشرقية</option>
+          <option>الغربية</option>
+          <option>القاهرة</option>
+          <option>القليوبية</option>
+          <option>المنوفية</option>
+          <option>المنيا</option>
+          <option>الفيوم</option>
+          <option>بورسعيد</option>
+          <option>دمياط</option>
+          <option>قنا</option>
+          <option>كفر الشيخ</option>
+          <option>الوادي الجديد</option>
+          <option>أسوان</option>
+          <option>أسيوط</option>
+          <option>بني سويف</option>
+          <option>مطروح</option>
+          <option>جنوب سيناء</option>
+          <option>الإسماعيلية</option>
+          <option>سوهاج</option>
+          <option>شمال سيناء</option>
+          <option>الأقصر</option>
+          <option>البحر الأحمر</option>
+          <option>السويس</option>
+        </select>
+      </div>
+      <div>
+        <label>العنوان:</label>
+        <input type="text" id="custAddress">
+      </div>
+      <div>
+        <label>العربون:</label>
+        <input type="number" id="deposit" value="0">
+      </div>
+      <div>
+        <label>الشحن:</label>
+        <input type="number" id="shipping" value="0">
+      </div>
+      <div>
+        <label>رقم التتبع:</label>
+        <input type="text" id="trackingNumber">
+      </div>
+      <div>
+        <label>حالة الفاتورة:</label>
+        <select id="invoiceStatus">
+          <option value="جديد" selected>جديد</option>
+          <option value="تم الإرسال">تم الإرسال</option>
+          <option value="تم التسليم">تم التسليم</option>
+          <option value="ملغي">ملغي</option>
+          <option value="حذف">حذف</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- زر التصدير في صفحة البائعين -->
+    <button id="exportInvoicesBtn" class="btn" style="margin-top:10px; width:auto;">تصدير الفواتير إلى Excel</button>
+
+    <!-- بحث الفاتورة -->
+    <div class="search-box">
+      <input type="text" id="invoiceSearch" placeholder="ابحث عن فاتورة بالرقم أو الهاتف...">
+      <button id="searchInvoiceBtn" class="btn" style="margin-top:10px; width:auto;">بحث</button>
+    </div>
+
+    <!-- بحث المنتجات -->
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="ابحث عن المنتج...">
+    </div>
+
+    <!-- بحث الفئة -->
+    <div class="search-box">
+      <input type="text" id="categoryInput" placeholder="ابحث عن الفئة...">
+    </div>
+
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>اسم المنتج</th>
+          <th>الفئة</th>
+          <th>السعر</th>
+          <th>العدد</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <button class="btn" id="submitOrder">إرسال الفاتورة للمسؤول</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <script>
+    const BIN_ID = "690874bad0ea881f40d07f5d";
+    const ACCESS_KEY = "$2a$10$MUgieOcdv8QNyPRuRsFb6eaAOYcAzxuWL6TB6FbI8L7fhZIVVibdO";
+    const API_BASE = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+    let allProducts = [];
+    let adminPhone = '';
+    let invoiceCounter = 3000;
+    let invoices = [];
+
+    const sellerSelect = document.getElementById("sellerCode");
+    const cartQuantities = {};
+
+    for (let i = 1; i <= 20; i++) {
+      const code = String(i).padStart(3, '0');
+      const option = document.createElement("option");
+      option.value = code;
+      option.textContent = `بائع ${code}`;
+      sellerSelect.appendChild(option);
+    }
+
+    async function fetchData() {
+      try {
+        const res = await fetch(`${API_BASE}/latest`, {
+          headers: { "X-Master-Key": ACCESS_KEY }
+        });
+        const data = await res.json();
+
+        allProducts = data.record.products || [];
+        adminPhone = data.record.whatsapp || '';
+        invoiceCounter = data.record.invoiceCounter && data.record.invoiceCounter >= 3000
+          ? data.record.invoiceCounter
+          : 3000;
+        invoices = data.record.invoices || [];
+
+        renderProducts();
+      } catch (err) {
+        console.error('Error fetching data', err);
+        alert('حدث خطأ في جلب البيانات من JSON.');
+      }
+    }
+
+    function renderProducts(filterName = '', filterCategory = '') {
+      const tbody = document.querySelector("#productTable tbody");
+      tbody.innerHTML = "";
+
+      allProducts
+        .filter(p => (!filterName || p.name.toLowerCase().includes(filterName.toLowerCase())) &&
+          (!filterCategory || p.category.toLowerCase().includes(filterCategory.toLowerCase())))
+        .forEach(p => {
+          const qty = cartQuantities[p.name] || 0;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${p.name}</td>
+            <td>${p.category}</td>
+            <td>${p.price} ج.م</td>
+            <td><input type="number" min="0" value="${qty}" data-name="${p.name}" data-price="${p.price}"></td>
+          `;
+          tbody.appendChild(row);
+        });
+
+      // تحديث القيم عند تعديل العدد يدويًا
+      tbody.querySelectorAll('input[type="number"][data-name]').forEach(input => {
+        input.addEventListener('input', () => {
+          const name = input.dataset.name;
+          const val = parseInt(input.value) || 0;
+          cartQuantities[name] = val;
+        });
+      });
+    }
+
+    document.getElementById("searchInput").addEventListener("input", () => {
+      const nameFilter = document.getElementById("searchInput").value;
+      const categoryFilter = document.getElementById("categoryInput")?.value || '';
+      renderProducts(nameFilter, categoryFilter);
+    });
+
+    if (document.getElementById("categoryInput")) {
+      document.getElementById("categoryInput").addEventListener("input", () => {
+        const nameFilter = document.getElementById("searchInput").value;
+        const categoryFilter = document.getElementById("categoryInput").value;
+        renderProducts(nameFilter, categoryFilter);
+      });
+    }
+
+    document.getElementById("submitOrder").addEventListener("click", async () => {
+      const sellerCode = sellerSelect.value;
+      const custName = document.getElementById('custName').value.trim();
+      const custPhone = document.getElementById('custPhone').value.trim();
+      const custCity = document.getElementById('custCity').value.trim();
+      const custAddress = document.getElementById('custAddress').value.trim();
+      const deposit = parseFloat(document.getElementById('deposit').value) || 0;
+      const shipping = parseFloat(document.getElementById('shipping').value) || 0;
+      const trackingNumber = document.getElementById('trackingNumber').value.trim();
+      const invoiceStatus = document.getElementById('invoiceStatus').value;
+
+      if (!sellerCode || !custName || !custPhone || !custCity || !custAddress) {
+        alert("من فضلك أدخل جميع بيانات العميل والبائع!");
+        return;
+      }
+
+      const invoiceItems = [];
+      let total = 0;
+
+      for (const [name, qty] of Object.entries(cartQuantities)) {
+        if (qty > 0) {
+          const product = allProducts.find(p => p.name === name);
+          if (product) {
+            const price = parseFloat(product.price);
+            invoiceItems.push({ name, qty, price, total: qty * price });
+            total += qty * price;
+          }
+        }
+      }
+
+      if (invoiceItems.length === 0) {
+        alert("لم يتم اختيار أي منتجات!");
+        return;
+      }
+
+      invoiceCounter++;
+      const invoiceNumber = invoiceCounter;
+      const date = new Date().toLocaleString();
+      const finalTotal = total + shipping - deposit;
+
+      const message = encodeURIComponent(
+        `فاتورة جديدة للبائع ${sellerCode}\nرقم الفاتورة: ${invoiceNumber}\nالتاريخ: ${date}\n` +
+        `العميل: ${custName}\n📞 ${custPhone}\n🏙️ ${custCity}\n📍 ${custAddress}\n\n` +
+        invoiceItems.map(i => `${i.name} x${i.qty} = ${i.total} ج.م`).join("\n") +
+        `\n\nالإجمالي: ${total} ج.م\nالشحن: ${shipping} ج.م\nالعربون: ${deposit} ج.م\nالمبلغ المستحق: ${finalTotal} ج.م`
+      );
+
+      window.open(`https://wa.me/${adminPhone}?text=${message}`, '_blank');
+
+      await sendInvoice({
+        number: invoiceNumber,
+        date,
+        name: custName,
+        phone1: custPhone,
+        phone2: '',
+        sellerCode,
+        details: invoiceItems.map(i => ({ name: i.name, qty: i.qty, price: i.price, total: i.total })),
+        total: finalTotal,
+        notes: '',
+        status: invoiceStatus,
+        trackingNumber
+      });
+
+      // مسح الخانات بعد الإرسال
+      document.getElementById('custName').value = '';
+      document.getElementById('custPhone').value = '';
+      document.getElementById('custCity').value = '';
+      document.getElementById('custAddress').value = '';
+      document.getElementById('deposit').value = '';
+      document.getElementById('shipping').value = '';
+      document.getElementById('trackingNumber').value = '';
+      document.getElementById('invoiceStatus').value = 'جديد';
+      for (const key in cartQuantities) cartQuantities[key] = 0;
+      renderProducts();
+    });
+
+    async function sendInvoice(invoice) {
+      invoices.push(invoice);
+      const updatedData = {
+        products: allProducts,
+        invoices: invoices,
+        whatsapp: adminPhone,
+        invoiceCounter: invoiceCounter
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": ACCESS_KEY
+          },
+          body: JSON.stringify(updatedData)
+        });
+
+        if (!res.ok) throw new Error('فشل الحفظ في JSON Bin');
+        console.log('✅ تم حفظ الفاتورة بنجاح في JSON Bin');
+      } catch (err) {
+        console.error('❌ خطأ أثناء حفظ الفاتورة:', err);
+        alert('حدث خطأ أثناء حفظ الفاتورة!');
+      }
+    }
+
+    // البحث عن الفاتورة بالرقم أو الهاتف
+    document.getElementById('searchInvoiceBtn').addEventListener('click', () => {
+      const val = document.getElementById('invoiceSearch').value.trim();
+      if (!val) return alert("من فضلك أدخل رقم الفاتورة أو رقم الهاتف للبحث");
+
+      const found = invoices.filter(inv =>
+        String(inv.number) === val || (inv.phone1 && inv.phone1.includes(val))
+      );
+
+      if (found.length === 0) {
+        alert('❌ لم يتم العثور على أي فاتورة بهذا الرقم أو الهاتف');
+        return;
+      }
+
+      found.forEach(inv => {
+        alert(`فاتورة رقم ${inv.number}\nالعميل: ${inv.name}\nالحالة: ${inv.status}\nرقم التتبع: ${inv.trackingNumber || '---'}`);
+      });
+    });
+
+    // زر تصدير الفواتير إلى Excel
+    document.addEventListener('DOMContentLoaded', () => {
+      const exportInvoicesBtn = document.getElementById('exportInvoicesBtn');
+      exportInvoicesBtn.addEventListener('click', async () => {
+        if (!invoices.length) { alert('⚠️ لا توجد فواتير لتصديرها'); return; }
+
+        const sheetData = [
+          ['رقم الفاتورة', 'التاريخ', 'اسم العميل', 'البيان', 'الكمية', 'السعر', 'الإجمالي', 'ملاحظات', 'البائع', 'تليفون1', 'تليفون2', 'رقم التتبع', 'الحالة', 'كود العميل', 'الشحن', 'العربون']
+        ];
+
+        invoices.forEach(inv => {
+          sheetData.push([
+            inv.number || '',
+            inv.date || '',
+            inv.name || '',
+            inv.details.map(d => d.name).join(', ') || '',
+            inv.details.map(d => d.qty).join(', ') || '',
+            inv.details.map(d => d.price).join(', ') || '',
+            inv.total || '',
+            inv.notes || '',
+            inv.sellerCode || '',
+            inv.phone1 || '',
+            inv.phone2 || '',
+            inv.trackingNumber || '',
+            inv.status || '',
+            inv.clientCode || '',
+            inv.shipping || '',
+            inv.deposit || ''
+          ]);
+        });
+
+        const workbook = XLSX.utils.book_new();
+        const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Invoices');
+
+        const fileName = `فواتير_BAEBIN_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.xlsx`;
+        XLSX.writeFile(workbook, fileName);
+        alert('✅ تم تصدير ملف الفواتير بنجاح');
+      });
+    });
+
+    fetchData();
+  </script>
+
+
+</body>
+
+</html>
