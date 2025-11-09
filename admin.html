@@ -7,7 +7,6 @@
     <title> GREEN GOLDEN </title>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <a href="index.html">العودة للصفحة الرئيسية</a>
     <style>
         /* (نفس CSS الخاص بك، قَصرت هنا للوضوح — حافظت على التصميم كما هو) */
         :root {
@@ -447,6 +446,28 @@
             display: none;
             /* يخفي النصوص التسميات */
         }
+         .img-btn {
+    width: 36px;   /* نفس حجم أزرار الصفحة الرئيسية */
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #d4af37;
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    padding: 3px;
+    transition: 0.2s;
+  }
+
+  .img-btn:hover {
+    transform: scale(1.15);
+    background-color: #d4af37;
+  }
+
+  .img-btn img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 
 
         @keyframes floatTitle {
@@ -469,6 +490,12 @@
     <header>
         <h1>🌿 GREEN GOLDEN </h1>
     </header>
+    <!-- زر العودة للصفحة الرئيسية -->
+<div style="position: fixed; right: 10px; top: 15px; z-index: 1000;">
+  <button class="img-btn" onclick="openProtectedHome()">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="الصفحة الرئيسية">
+  </button>
+</div>
 
     <div class="container" id="mainArea">
         <div class="left">
@@ -1103,3 +1130,4 @@
 
 
 </html>
+
