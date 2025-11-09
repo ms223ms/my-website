@@ -27,6 +27,10 @@
             color: #000000;
             font-weight: bold;
             min-height: 100vh;
+            font-family: 'Almarai', sans-serif;
+      background: #f1f8e9;
+      margin: 0;
+      padding: 0;
         }
 
         header {
@@ -346,6 +350,38 @@
             font-weight: bold;
             cursor: pointer;
         }
+        /* 🔘 الحاوية */
+    .button-container {
+      position: fixed;
+      right: 8px;
+      top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 999;
+    }
+         /* 🔘 الزر */
+    .img-btn {
+      width: 32px;   /* الحجم الصغير */
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background-color: white;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      padding: 2px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+        .img-btn:hover {
+      transform: scale(1.15);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    }
+
+    .img-btn img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
 
         @media(max-width:980px) {
             .container {
@@ -375,7 +411,7 @@
 <!-- 🔘 أزرار الصور على يمين الصفحة -->
   <div class="button-container">
     <button class="img-btn" onclick="openProtectedPage('sells.html')">
-      <img src="https://cdn-icons-png.flaticon.com/512/2972/2972113.png" alt="البائعين">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135700.png" alt="البائعين">
     </button>
 
     <button class="img-btn" onclick="openProtectedPage('admin.html')">
@@ -711,4 +747,5 @@
 
 
 </html>
+
 
