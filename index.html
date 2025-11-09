@@ -371,19 +371,21 @@
 <body>
     <header>
         <h1>🌿 GREEN GOLDEN </h1>
-        <a href="sells.html">
-  <img src="https://cdn-icons-png.flaticon.com/512/2972/2972113.png" 
-       alt="صفحة البائعين" 
-       style="width:120px; border-radius:15px;">
-</a>
-
-<a href="admin.html">
-  <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
-       alt="صفحة المسؤول" 
-       style="width:120px; border-radius:15px;">
-</a>
     </header>
+<!-- 🔘 أزرار الصور على يمين الصفحة -->
+  <div class="button-container">
+    <button class="img-btn" onclick="openProtectedPage('sells.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/2972/2972113.png" alt="البائعين">
+    </button>
 
+    <button class="img-btn" onclick="openProtectedPage('admin.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="المسؤول">
+    </button>
+
+    <button class="img-btn" onclick="openProtectedPage('index.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="الرئيسية">
+    </button>
+  </div>
     <div class="container">
         <div class="left">
             <div class="featured">
@@ -693,9 +695,20 @@
             searchInput.addEventListener('input', () => renderProducts('', searchInput.value));
             fetchFromBin();
         });
+            function openProtectedPage(url) {
+      const username = prompt("👤 أدخل اسم المستخدم:");
+      const password = prompt("🔒 أدخل كلمة المرور:");
+
+      if (username === "tarek.azab" && password === "admin123") {
+        window.location.href = url;
+      } else {
+        alert("❌ اسم المستخدم أو كلمة المرور غير صحيحة");
+      }
+    }
     </script>
 
 </body>
 
 
 </html>
+
