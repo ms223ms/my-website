@@ -1123,6 +1123,16 @@
             });
 
         });
+        function openProtectedHome() {
+    const username = prompt("👤 أدخل اسم المستخدم:");
+    const password = prompt("🔒 أدخل كلمة المرور:");
+
+    if (username === "tarek.azab" && password === "admin123") {
+      window.location.href = "index.html";
+    } else {
+      alert("❌ اسم المستخدم أو كلمة المرور غير صحيحة");
+    }
+  }
 
     </script>
 
@@ -1130,4 +1140,5 @@
 
 
 </html>
+
 
