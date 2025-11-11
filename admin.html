@@ -1080,7 +1080,7 @@
                     const res = await fetch(`${API_BASE}/latest`, { headers: { "X-Master-Key": MASTER_KEY } });
                     if (!res.ok) throw new Error('فشل الاتصال بقاعدة البيانات');
                     const invoices = (await res.json()).record.invoices || [];
-                    const matched = invoices.filter(o => o.invoiceNo === val);
+                    const matched = invoices.filter(o => o.number === val);
                     if (!matched.length) { toast('❌ لا توجد فاتورة بهذا الرقم'); return; }
                     const o = matched[0];
                     const newWin = window.open('', '_blank');
@@ -1160,6 +1160,7 @@
 
 
 </html>
+
 
 
 
