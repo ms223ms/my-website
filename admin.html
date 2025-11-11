@@ -901,36 +901,49 @@
             });
 
 
-           // add/edit product
-            saveProdBtn.addEventListener('click', () => {
-                const name = prodName.value.trim();
-                const price = Number(prodPrice.value);
-                const desc = prodDesc.value.trim();
-                const cat = prodCategory.value;
-                let imgUrl = prodImgUrl.value.trim();
-                const editIndex = saveProdBtn.dataset.editIndex;
+           saveProdBtn.addEventListener('click', () => {
+    const name = prodName.value.trim();
+    const price = Number(prodPrice.value);
+    const desc = prodDesc.value.trim();
+    const cat = prodCategory.value;
+    let imgUrl = prodImgUrl.value.trim();
+    const editIndex = saveProdBtn.dataset.editIndex;
 
-                if (prodImgFile.files && prodImgFile.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) { imgUrl = e.target.result; saveProduct(); };
-                    reader.readAsDataURL(prodImgFile.files[0]);
-                } else saveProduct();
+    function saveProduct() {
+        // إذا لم توجد صورة جديدة واستخدمنا تعديل، خذ الصورة القديمة
+        if (!imgUrl && editIndex !== undefined) {
+            imgUrl = products[Number(editIndex)] ? products[Number(editIndex)].img || '' : '';
+        }
 
-                function saveProduct() {
-                    if (!name || !price || !desc || !cat || !imgUrl) { alert('يرجى ملء جميع الحقول بما فيها الصورة'); return; }
+        if (!name || !price || !desc || !cat || !imgUrl) { 
+            alert('يرجى ملء جميع الحقول بما فيها الصورة'); 
+            return; 
+        }
 
-                    if (editIndex) {
-                        products[Number(editIndex)] = { ...products[Number(editIndex)], name, price, desc, category: cat, img: imgUrl };
-                        toast('تم حفظ التعديلات');
-                    } else { products.push({ name, price, desc, category: cat, img: imgUrl, featured: false }); toast('تمت إضافة المنتج'); }
+        if (editIndex !== undefined) {
+            products[Number(editIndex)] = { ...products[Number(editIndex)], name, price, desc, category: cat, img: imgUrl };
+            toast('تم حفظ التعديلات');
+        } else {
+            products.push({ name, price, desc, category: cat, img: imgUrl, featured: false });
+            toast('تمت إضافة المنتج');
+        }
 
-                    saveLocalBackup();
-                    saveToBin();
-                    renderProducts();
-                    renderFeatured();
-                    clearForm();
-                }
-            });
+        saveLocalBackup();
+        saveToBin();
+        renderProducts();
+        renderFeatured();
+        clearForm();
+    }
+
+    // إذا المستخدم اختار ملف جديد، استخدمه
+    if (prodImgFile && prodImgFile.files && prodImgFile.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => { imgUrl = e.target.result; saveProduct(); };
+        reader.readAsDataURL(prodImgFile.files[0]);
+    } else {
+        saveProduct();
+    }
+});
 
 
             function enterEdit(i) {
@@ -1166,6 +1179,7 @@
 
 
 </html>
+
 
 
 
