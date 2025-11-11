@@ -901,36 +901,50 @@
             });
 
 
-            // add/edit product
             saveProdBtn.addEventListener('click', () => {
-                const name = prodName.value.trim();
-                const price = Number(prodPrice.value);
-                const desc = prodDesc.value.trim();
-                const cat = prodCategory.value;
-                let imgUrl = prodImgUrl.value.trim();
-                const editIndex = saveProdBtn.dataset.editIndex;
+    const name = prodName.value.trim();
+    const price = Number(prodPrice.value);
+    const desc = prodDesc.value.trim();
+    const cat = prodCategory.value;
+    let imgUrl = prodImgUrl.value.trim();
+    const editIndex = saveProdBtn.dataset.editIndex;
 
-                if (prodImgFile.files && prodImgFile.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) { imgUrl = e.target.result; saveProduct(); };
-                    reader.readAsDataURL(prodImgFile.files[0]);
-                } else saveProduct();
+    // إذا عنصر رفع الصورة غير موجود نتعامل معه بأمان
+    const hasFileInput = !!prodImgFile;
+    if (hasFileInput && prodImgFile.files && prodImgFile.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) { imgUrl = e.target.result; saveProduct(); };
+        reader.readAsDataURL(prodImgFile.files[0]);
+    } else {
+        // لو في وضع تعديل: استخدم الصورة القديمة إذا لم تدخل صورة جديدة
+        if (!imgUrl && editIndex !== undefined) {
+            imgUrl = products[Number(editIndex)] ? products[Number(editIndex)].img || '' : '';
+        }
+        saveProduct();
+    }
 
-                function saveProduct() {
-                    if (!name || !price || !desc || !cat || !imgUrl) { alert('يرجى ملء جميع الحقول بما فيها الصورة'); return; }
+    function saveProduct() {
+        // تأكد من استخدام الصورة القديمة أثناء التعديل إذا لم توجد جديدة
+        if (!imgUrl && editIndex) imgUrl = products[Number(editIndex)] ? products[Number(editIndex)].img || '' : '';
 
-                    if (editIndex) {
-                        products[Number(editIndex)] = { ...products[Number(editIndex)], name, price, desc, category: cat, img: imgUrl };
-                        toast('تم حفظ التعديلات');
-                    } else { products.push({ name, price, desc, category: cat, img: imgUrl, featured: false }); toast('تمت إضافة المنتج'); }
+        if (!name || !price || !desc || !cat || !imgUrl) { alert('يرجى ملء جميع الحقول بما فيها الصورة'); return; }
 
-                    saveLocalBackup();
-                    saveToBin();
-                    renderProducts();
-                    renderFeatured();
-                    clearForm();
-                }
-            });
+        if (editIndex) {
+            products[Number(editIndex)] = { ...products[Number(editIndex)], name, price, desc, category: cat, img: imgUrl };
+            toast('تم حفظ التعديلات');
+        } else {
+            products.push({ name, price, desc, category: cat, img: imgUrl, featured: false });
+            toast('تمت إضافة المنتج');
+        }
+
+        saveLocalBackup();
+        saveToBin();
+        renderProducts();
+        renderFeatured();
+        clearForm();
+    }
+});
+
 
             function enterEdit(i) {
                 const p = products[i];
@@ -1165,6 +1179,7 @@
 
 
 </html>
+
 
 
 
