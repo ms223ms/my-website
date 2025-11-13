@@ -98,18 +98,16 @@
                 <p>رقم الفاتورة: <span id="invNumber"></span></p>
                 <p>التاريخ: <span id="invDate"></span></p>
             </div>
-            <img src="https://i.imgur.com/VG8L4oX.png" alt="شعار الشركة" style="width:120px;height:auto;">
+            <img src="https://images.pexels.com/photos/13270364/pexels-photo-13270364.jpeg" alt="شعار الشركة"
+                style="width:120px;height:auto;">
         </div>
 
         <div class="details">
-            <div>👤 العميل: <span id="custName"></span></div>
+            <div>💼 كود البائع: <span id="sellerCode"></span></div>
+            <div>👤 اسم العميل: <span id="custName"></span></div>
             <div>📞 الهاتف: <span id="custPhone"></span></div>
             <div>🏙️ المحافظة: <span id="custCity"></span></div>
             <div>📍 العنوان: <span id="custAddress"></span></div>
-            <div>💼 كود البائع: <span id="sellerCode"></span></div>
-            <div>🚚 الشحن: <span id="shipping"></span> ج.م</div>
-            <div>💰 العربون: <span id="deposit"></span> ج.م</div>
-            <div>🎯 الحالة: <span id="invoiceStatus"></span></div>
         </div>
 
         <table>
@@ -126,6 +124,8 @@
 
         <div class="total-box">
             <p>الإجمالي قبل الشحن: <span id="total"></span> ج.م</p>
+            <p>الشحن: <span id="shipping"></span> ج.م</p>
+            <p>العربون: <span id="deposit"></span> ج.م</p>
             <p>المبلغ المستحق: <span id="finalTotal"></span> ج.م</p>
         </div>
 
@@ -144,9 +144,6 @@
             document.getElementById('sellerCode').textContent = data.sellerCode;
             document.getElementById('shipping').textContent = data.shipping;
             document.getElementById('deposit').textContent = data.deposit;
-            document.getElementById('invoiceStatus').textContent = data.invoiceStatus;
-            document.getElementById('total').textContent = data.total;
-            document.getElementById('finalTotal').textContent = data.finalTotal;
 
             const tbody = document.getElementById('itemTable');
             data.items.forEach(item => {
@@ -159,6 +156,11 @@
     `;
                 tbody.appendChild(row);
             });
+
+            // حساب المبلغ المستحق بعد إضافة الشحن وطرح العربون
+            const final = parseFloat(data.total || 0) + parseFloat(data.shipping || 0) - parseFloat(data.deposit || 0);
+            document.getElementById('total').textContent = data.total;
+            document.getElementById('finalTotal').textContent = final.toFixed(2);
         }
     </script>
 </body>
