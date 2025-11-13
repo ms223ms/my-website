@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فاتورة إلكترونية</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f6f6f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        .header h2 {
+            color: #2e7d32;
+            margin: 0;
+        }
+
+        .details {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .total-box {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .print-btn {
+            display: block;
+            margin: 30px auto 10px;
+            padding: 10px 25px;
+            font-size: 16px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .print-btn:hover {
+            background: #1b5e20;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box">
+        <div class="header">
+            <div>
+                <h2>فاتورة إلكترونية</h2>
+                <p>رقم الفاتورة: <span id="invNumber"></span></p>
+                <p>التاريخ: <span id="invDate"></span></p>
+            </div>
+            <img src="https://i.imgur.com/VG8L4oX.png" alt="شعار الشركة" style="width:120px;height:auto;">
+        </div>
+
+        <div class="details">
+            <div>👤 العميل: <span id="custName"></span></div>
+            <div>📞 الهاتف: <span id="custPhone"></span></div>
+            <div>🏙️ المحافظة: <span id="custCity"></span></div>
+            <div>📍 العنوان: <span id="custAddress"></span></div>
+            <div>💼 كود البائع: <span id="sellerCode"></span></div>
+            <div>🚚 الشحن: <span id="shipping"></span> ج.م</div>
+            <div>💰 العربون: <span id="deposit"></span> ج.م</div>
+            <div>🎯 الحالة: <span id="invoiceStatus"></span></div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>المنتج</th>
+                    <th>الكمية</th>
+                    <th>السعر</th>
+                    <th>الإجمالي</th>
+                </tr>
+            </thead>
+            <tbody id="itemTable"></tbody>
+        </table>
+
+        <div class="total-box">
+            <p>الإجمالي قبل الشحن: <span id="total"></span> ج.م</p>
+            <p>المبلغ المستحق: <span id="finalTotal"></span> ج.م</p>
+        </div>
+
+        <button class="print-btn" onclick="window.print()">🖨️ طباعة الفاتورة</button>
+    </div>
+
+    <script>
+        const data = JSON.parse(localStorage.getItem("lastInvoice"));
+        if (data) {
+            document.getElementById('invNumber').textContent = data.number;
+            document.getElementById('invDate').textContent = data.date;
+            document.getElementById('custName').textContent = data.custName;
+            document.getElementById('custPhone').textContent = data.custPhone;
+            document.getElementById('custCity').textContent = data.custCity;
+            document.getElementById('custAddress').textContent = data.custAddress;
+            document.getElementById('sellerCode').textContent = data.sellerCode;
+            document.getElementById('shipping').textContent = data.shipping;
+            document.getElementById('deposit').textContent = data.deposit;
+            document.getElementById('invoiceStatus').textContent = data.invoiceStatus;
+            document.getElementById('total').textContent = data.total;
+            document.getElementById('finalTotal').textContent = data.finalTotal;
+
+            const tbody = document.getElementById('itemTable');
+            data.items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+      <td>${item.name}</td>
+      <td>${item.qty}</td>
+      <td>${item.price}</td>
+      <td>${item.total}</td>
+    `;
+                tbody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+
+</html>
